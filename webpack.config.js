@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
@@ -36,7 +37,33 @@ module.exports = {
     new HtmlWebpackPlugin({
       scriptLoading: 'module',
     }),
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({
+      filename: 'bundle.css',
+    }),
+    new WorkboxPlugin.GenerateSW({
+      runtimeCaching: [
+        {
+          urlPattern: /\.(?:png|jpg|jpeg|svg)$/,
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'images',
+            expiration: {
+              maxEntries: 10,
+            },
+          },
+        },
+        {
+          urlPattern: /^\/[^\/]+\.html$/,
+          handler: 'NetworkFirst',
+          options: {
+            cacheName: 'html',
+            expiration: {
+              maxEntries: 10,
+            },
+          },
+        },
+      ],
+    }),
   ],
   devServer: {
     static: {

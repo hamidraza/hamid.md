@@ -7,7 +7,8 @@
     "start": "NODE_ENV=development webpack serve --open",
     "build": "NODE_ENV=production webpack && markdown-it CREDITS.md > dist/credits.html",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "version": "credits-generator && git add -A CREDITS.md"
+    "version": "credits-generator && git add -A CREDITS.md",
+    "clean": "rm ./dist/bundle.* && rm ./dist/*.html"
   },
   "keywords": [],
   "author": "",
@@ -33,6 +34,7 @@
     "sass-loader": "^12.4.0",
     "webpack": "^5.67.0",
     "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.7.3"
+    "webpack-dev-server": "^4.7.3",
+    "workbox-webpack-plugin": "^6.4.2"
   }
 }
