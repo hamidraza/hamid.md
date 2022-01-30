@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  background-color: black;
+}
+
+#xterm-container, .terminal.xterm {
+  height: 100vh;
+}
