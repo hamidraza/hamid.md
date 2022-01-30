@@ -43,7 +43,8 @@ function writeIntro() {
   ╰─(type 'help' for available commands)`);
 }
 
-function runCmd(cmd = "") {
+function runCmd(command = "") {
+  var cmd = command.trim();
   if (cmd) {
     switch(cmd) {
       case 'intro': {
@@ -100,6 +101,8 @@ function runCmd(cmd = "") {
     .read("~$ ").then(runCmd)
     .catch(error => console.error(`Error reading: ${error}`));
 }
+
+localEcho.addAutocompleteHandler((index, tokens) => index == 0 ? availableCmds : []);
 
 term.open(document.getElementById('xterm-container'));
 fitAddon.fit();
