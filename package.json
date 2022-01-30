@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=development webpack serve --open",
-    "build": "NODE_ENV=production webpack",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "NODE_ENV=production webpack && markdown-it CREDITS.md > dist/credits.html",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "version": "credits-generator && git add -A CREDITS.md"
   },
   "keywords": [],
   "author": "",
@@ -23,8 +24,10 @@
     "xterm-addon-web-links": "^0.5.0"
   },
   "devDependencies": {
+    "@opengovsg/credits-generator": "^1.0.6",
     "css-loader": "^6.5.1",
     "html-webpack-plugin": "^5.5.0",
+    "markdown-it": "^12.3.2",
     "mini-css-extract-plugin": "^2.5.3",
     "sass": "^1.49.0",
     "sass-loader": "^12.4.0",

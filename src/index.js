@@ -86,7 +86,9 @@ function runCmd(cmd = "") {
     https://xtermjs.org/\r
     \r
   - local-echo\r
-    https://github.com/wavesoft/local-echo\r\n`)
+    https://github.com/wavesoft/local-echo\r
+    \r
+  Check complete credits at: https://hamid.md/credits.html`)
         break;
       }
       default: {
