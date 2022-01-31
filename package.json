@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development webpack serve --open",
+    "start": "NODE_ENV=development VERSION=0.0.0 webpack serve --open",
     "build": "NODE_ENV=production webpack && markdown-it CREDITS.md > dist/credits.html",
     "test": "echo \"Error: no test specified\" && exit 1",
     "version": "credits-generator && git add -A CREDITS.md",
@@ -17,7 +17,6 @@
     "local-echo": "github:wavesoft/local-echo",
     "postcss-loader": "^6.2.1",
     "postcss-preset-env": "^7.2.3",
-    "tailwindcss": "^3.0.18",
     "ts-loader": "^9.2.6",
     "typescript": "^4.5.5",
     "xterm": "^4.16.0",
