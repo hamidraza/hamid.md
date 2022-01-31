@@ -26,7 +26,7 @@ term.loadAddon(fitAddon);
 term.loadAddon(webLinkAddon);
 term.loadAddon(localEcho);
 
-function termWrite(text, nl=2) {
+function termWrite(text: string, nl=2) {
   term.write(`${text}${"\r\n".repeat(nl)}`);
 }
 
@@ -43,7 +43,7 @@ function writeIntro() {
   ╰─(type 'help' for available commands)`);
 }
 
-function runCmd(command = "") {
+function runCmd(command: string = ""): Promise<string | void> {
   var cmd = command.trim();
   if (cmd) {
     switch(cmd) {
@@ -97,14 +97,19 @@ function runCmd(command = "") {
       }
     }
   }
-  return localEcho
-    .read("~$ ").then(runCmd)
+
+  return localEcho.read("~$ ")
+    .then(runCmd)
     .catch(error => console.error(`Error reading: ${error}`));
 }
 
-localEcho.addAutocompleteHandler((index, tokens) => index == 0 ? availableCmds : []);
+localEcho.addAutocompleteHandler(i => i == 0 ? availableCmds : []);
 
-term.open(document.getElementById('xterm-container'));
+term.open(document.getElementById('xterm-container') || document.body);
 fitAddon.fit();
+
+window.addEventListener('resize', () => {
+  fitAddon.fit();
+});
 
 runCmd('intro')

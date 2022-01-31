@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/index.ts',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
@@ -13,14 +13,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/i,
-        include: path.resolve(__dirname, 'src'),
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-          },
-        },
+        test: /\.tsx?$/,
+        use: 'ts-loader',
       },
       {
         test: /\.(css)$/,
@@ -31,6 +25,9 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader', 'postcss-loader'],
       },
     ],
+  },
+  resolve: {
+    extensions: ['.ts', '.js'],
   },
   plugins: [
     new webpack.EnvironmentPlugin(['NODE_ENV', 'VERSION']),
