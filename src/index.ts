@@ -2,6 +2,7 @@ import { Terminal } from 'xterm';
 import { FitAddon } from 'xterm-addon-fit';
 import { WebLinksAddon } from 'xterm-addon-web-links';
 import LocalEchoController from 'local-echo';
+import * as qna from '@tensorflow-models/qna';
 
 import 'xterm/css/xterm.css';
 import './style.scss';
@@ -11,6 +12,10 @@ const term = new Terminal({ cursorBlink: true });
 const fitAddon = new FitAddon();
 const webLinkAddon = new WebLinksAddon();
 const localEcho = new LocalEchoController();
+
+let qnaModel = qna.load();
+
+const passage = `Hello everyone, My name is MD HamidRaza, you can call me Hamid. I am from Sundargarh, Odisha. Currently I leave in Bangalore, Karnataka. I work in DisneyPlusHotstar as Director of engineering. I have total 12 years of experience in Sotware engineering, and 6+ years of experience in technical leadership. You can contact me at my email rz@hamid.md`;
 
 let availableCmds = [
   'intro',
@@ -44,7 +49,8 @@ function writeIntro() {
 }
 
 function runCmd(command: string = ""): Promise<string | void> {
-  var cmd = command.trim();
+  let wait = Promise.resolve();
+  let cmd = command.trim();
   if (cmd) {
     switch(cmd) {
       case 'intro': {
@@ -74,7 +80,15 @@ function runCmd(command: string = ""): Promise<string | void> {
         break;
       }
       case 'help': {
-        termWrite(`Available commands: \r\n  - ${availableCmds.join("\r\n  - ")}`);
+        termWrite(`Available commands: \r
+  - ${availableCmds.join("\r\n  - ")}\r
+  \r
+Or, you can ask me anything, few examples\r
+  - What is your name?\r
+  - Where are you from?\r
+  - How to contact you?\r
+  - Where you currently leave?\r
+  etc.`);
         break;
       }
       case 'history': {
@@ -89,16 +103,29 @@ function runCmd(command: string = ""): Promise<string | void> {
   - local-echo\r
     https://github.com/wavesoft/local-echo\r
     \r
+  - Natural language question answering\r
+    https://github.com/tensorflow/tfjs-models/tree/master/qna\r
+    \r
   Check complete credits at: https://hamid.md/credits.html`)
         break;
       }
       default: {
-        termWrite(`command not found: ${cmd}\r\ntype 'help' for available commands`)
+        wait = qnaModel.then(model => model.findAnswers(cmd, passage)).then(anss => {
+          if(anss[0]) {
+            termWrite(anss[0].text);
+          } else {
+            termWrite(`
+  I didn't understand your command/query: ${cmd},\r
+  please try again or ask something else.\r
+  \r
+  type 'help' for available commands.`);
+          }
+        });
       }
     }
   }
 
-  return localEcho.read("~$ ")
+  return wait.then(() => localEcho.read("~$ "))
     .then(runCmd)
     .catch(error => console.error(`Error reading: ${error}`));
 }

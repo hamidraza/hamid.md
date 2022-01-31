@@ -1,14 +1,18 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
+
+const isDev = !process.env.NODE_ENV || process.env.NODE_ENV == 'development';
+const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
   entry: './src/index.ts',
   output: {
-    filename: 'bundle.js',
+    filename: 'bundle.[fullhash].js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -35,9 +39,9 @@ module.exports = {
       scriptLoading: 'module',
     }),
     new MiniCssExtractPlugin({
-      filename: 'bundle.css',
+      filename: 'bundle.[fullhash].css',
     }),
-    new WorkboxPlugin.GenerateSW({
+    isDev ? undefined : new WorkboxPlugin.GenerateSW({
       runtimeCaching: [
         {
           urlPattern: /\.(?:png|jpg|jpeg|svg)$/,
@@ -61,7 +65,7 @@ module.exports = {
         },
       ],
     }),
-  ],
+  ].filter(v => v),
   devServer: {
     static: {
       directory: path.join(__dirname, 'dist'),
