@@ -15,7 +15,7 @@ const localEcho = new LocalEchoController();
 
 let qnaModel = qna.load();
 
-const passage = `Hello everyone, My name is MD HamidRaza, you can call me Hamid. I am from Sundargarh, Odisha. Currently I leave in Bangalore, Karnataka. I work in DisneyPlusHotstar as Director of engineering. I have total 12 years of experience in Sotware engineering, and 6+ years of experience in technical leadership. You can contact me at my email rz@hamid.md`;
+const passage = `Hello everyone, My name is MD HamidRaza, you can call me Hamid. I am from Sundargarh, Odisha. Currently I live in Bangalore, Karnataka. I work in DisneyPlusHotstar as Director of engineering. I have total 12 years of experience in Sotware engineering, and 6+ years of experience in technical leadership. You can contact me at my email rz@hamid.md`;
 
 let availableCmds = [
   'intro',
@@ -87,7 +87,7 @@ Or, you can ask me anything, few examples\r
   - What is your name?\r
   - Where are you from?\r
   - How to contact you?\r
-  - Where you currently leave?\r
+  - Where do you live?\r
   etc.`);
         break;
       }
