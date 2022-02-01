@@ -5,6 +5,8 @@ declare module 'local-echo' {
     activate(terminal: Terminal): void;
     addAutocompleteHandler(fn: (index: number) => void): void;
     history: HistoryController;
+    print(message: string): void;
+    println(message: string): void;
   }
 
   export interface HistoryController {
