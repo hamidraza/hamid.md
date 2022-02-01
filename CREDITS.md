@@ -216,6 +216,18 @@ https://github.com/tensorflow/tfjs-models
 -------------------------------------------------------------------------------
 
 ## Project
+chalk
+
+### Source
+https://github.com/chalk/chalk
+
+### License
+There is no license specified in this repository. Please visit the source and contact the repository's owners to find out more.
+
+
+-------------------------------------------------------------------------------
+
+## Project
 local-echo
 
 ### Source
