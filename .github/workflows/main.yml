@@ -15,10 +15,17 @@ jobs:
       - name: Get the tag name
         run: echo "VERSION=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
 
-      - name: Install and Build 🔧
-        run: |
-          npm ci
-          npm run build
+      - name: Setup
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: npm
+
+      - name: Install 🔧
+        run: npm install
+
+      - name: Build
+        run: npm run build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.2
