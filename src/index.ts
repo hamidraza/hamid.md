@@ -10,7 +10,7 @@ import './style.scss';
 
 const baseTheme = {
   foreground: '#cccccc',
-  background: '#2D2E2C',
+  background: '#282a36',
   selection: '#5DA5D533',
   black: '#1E1E1D',
   brightBlack: '#262625',
@@ -30,9 +30,16 @@ const baseTheme = {
   brightWhite: '#FFFFFF'
 };
 
+var scrnSM = window.matchMedia("(max-width: 576px)");
+var scrnMD = window.matchMedia("(max-width: 768px)");
+var scrnLG = window.matchMedia("(max-width: 992px)");
+var scrnXL = window.matchMedia("(max-width: 1200px)");
+var scrnXXL = window.matchMedia("(max-width: 1400px)");
+
 const term = new Terminal({
   cursorBlink: true,
   theme: baseTheme,
+  lineHeight: 1.2,
 });
 
 const fitAddon = new FitAddon();
@@ -69,16 +76,35 @@ function termWrite(text: string, nl=1) {
 }
 
 function writeIntro() {
-  termWrite(`\r
-  ${chalk.magentaBright('╭─ Welcome to:')}\r
-  ${chalk.magentaBright('|')}  ${chalk.cyanBright(` _     _                   ${chalk.bold(' _ ')}     _      __   __   _____  `)}\r
-  ${chalk.magentaBright('|')}  ${chalk.cyanBright(`(_)   (_)                  ${chalk.bold('(_)')}    (_)    (__)_(__) (_____) `)}\r
-  ${chalk.magentaBright('|')}  ${chalk.cyanBright(`(_)___(_)  ____   __   __   _   __(_)   (_) (_) (_)(_)  (_)`)}\r
-  ${chalk.magentaBright('|')}  ${chalk.cyanBright(`(_______) (____) (__)_(__) (_) (____)   (_) (_) (_)(_)  (_)`)}\r
-  ${chalk.magentaBright('|')}  ${chalk.cyanBright(`(_)   (_)( )_( )(_) (_) (_)(_)(_)_(_)${chalk.bold(' _ ')}(_)     (_)(_)__(_)`)}\r
-  ${chalk.magentaBright('|')}  ${chalk.cyanBright(`(_)   (_) (__)_)(_) (_) (_)(_) (____)${chalk.bold('(_)')}(_)     (_)(_____) `)}\r
-  ${chalk.magentaBright('|')}  \r
-  ${chalk.magentaBright('╰─')}${chalk.magentaBright(`(type '${chalk.bold('help')}' for available commands)`)}`);
+
+
+  if(scrnSM.matches) {
+termWrite(`\r
+${chalk.magentaBright('╭─ Welcome to:')}\r
+${chalk.magentaBright('|')}  Ⲏⲁⲙⲓⲇ.ⲘⲆ\r
+${chalk.magentaBright('╰─')}${chalk.magentaBright(`(type '${chalk.bold('help')}' for available commands)`)}`);
+  } else if(scrnLG.matches) {
+termWrite(`\r
+${chalk.magentaBright('╭─ Welcome to:')}\r
+${chalk.magentaBright('|')}   _  _            _    _   __  __ ___        \r
+${chalk.magentaBright('|')}  | || |__ _ _ __ (_)__| | |  \\/  |   \\     \r
+${chalk.magentaBright('|')}  | __ / _\` | '  \\| / _\` |_| |\\/| | |) |  \r
+${chalk.magentaBright('|')}  |_||_\\__,_|_|_|_|_\\__,_(_)_|  |_|___/     \r
+${chalk.magentaBright('|')}\r
+${chalk.magentaBright('╰─')}${chalk.magentaBright(`(type '${chalk.bold('help')}' for available commands)`)}`);
+  } else {
+termWrite(`\r
+${chalk.magentaBright('╭─ Welcome to:')}\r
+${chalk.magentaBright('|')}    __    __       __       ___      ___   __     ________          ___      ___  ________                 \r
+${chalk.magentaBright('|')}    /" |  | "\\     /""\\     |"  \\    /"  | |" \\   |"      "\\        |"  \\    /"  ||"      "\\        \r
+${chalk.magentaBright('|')}   (:  (__)  :)   /    \\     \\   \\  //   | ||  |  (.  ___  :)        \\   \\  //   |(.  ___  :)         \r
+${chalk.magentaBright('|')}    \\/      \\/   /' /\\  \\    /\\\\  \\/.    | |:  |  |: \\   ) ||        /\\\\  \\/.    ||: \\   ) ||  \r
+${chalk.magentaBright('|')}    //  __  \\\\  //  __'  \\  |: \\.        | |.  |  (| (___\\ || _____ |: \\.        |(| (___\\ ||       \r
+${chalk.magentaBright('|')}   (:  (  )  :)/   /  \\\\  \\ |.  \\    /:  | /\\  |\\ |:       :)))_  ")|.  \\    /:  ||:       :)       \r
+${chalk.magentaBright('|')}    \\__|  |__/(___/    \\___)|___|\\__/|___|(__\\_|_)(________/(_____( |___|\\__/|___|(________/          \r
+${chalk.magentaBright('|')} \r
+${chalk.magentaBright('╰─')}${chalk.magentaBright(`(type '${chalk.bold('help')}' for available commands)`)}`);
+  }
 }
 
 function runCmd(command: string = ""): Promise<string | void> {
@@ -155,7 +181,7 @@ Or, you can ask me anything, few examples:\r
     }
   }
 
-  return wait.then(() => localEcho.read(`╭─ ${chalk.greenBright('[Guest user]: ~/')}\r\n╰─$ `))
+  return wait.then(() => localEcho.read(`╭── ${chalk.greenBright('[Guest user]: ~/')}\r\n╰─$ `))
     .then(runCmd)
     .catch(error => console.error(`Error reading: ${error}`));
 }
