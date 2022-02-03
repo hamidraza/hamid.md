@@ -6,6 +6,7 @@ import chalk from 'chalk';
 import * as qna from '@tensorflow-models/qna';
 import { initializeApp } from "firebase/app";
 import { getAnalytics, logEvent } from "firebase/analytics";
+import { getPerformance } from "firebase/performance";
 
 import 'xterm/css/xterm.css';
 import './style.scss';
@@ -22,6 +23,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+const perf = getPerformance(app);
 
 const baseTheme = {
   foreground: '#cccccc',
