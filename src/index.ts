@@ -23,7 +23,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const perf = getPerformance(app);
+getPerformance(app);
 
 const baseTheme = {
   foreground: '#cccccc',
@@ -93,8 +93,6 @@ function termWrite(text: string, nl=1) {
 }
 
 function writeIntro() {
-
-
   if(scrnSM.matches) {
 termWrite(`\r
 ${chalk.magentaBright('╭─ Welcome to:')}\r
@@ -203,7 +201,7 @@ Or, you can ask me anything, few examples:\r
 
   logEvent(analytics, 'select_content', analyticsData);
 
-  return wait.then(() => localEcho.read(`╭── ${chalk.greenBright('[Guest user]: ~/')}\r\n╰─$ `))
+  return wait.then(() => localEcho.read(`╭── ${chalk.bold.greenBright('[Guest user]: ~/')}\r\n╰─$ `))
     .then(runCmd)
     .catch(error => console.error(`Error reading: ${error}`));
 }
