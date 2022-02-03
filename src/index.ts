@@ -4,9 +4,24 @@ import { WebLinksAddon } from 'xterm-addon-web-links';
 import LocalEchoController from 'local-echo';
 import chalk from 'chalk';
 import * as qna from '@tensorflow-models/qna';
+import { initializeApp } from "firebase/app";
+import { getAnalytics, logEvent } from "firebase/analytics";
 
 import 'xterm/css/xterm.css';
 import './style.scss';
+
+const firebaseConfig = {
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: "hamidmd-d63b4.firebaseapp.com",
+  projectId: "hamidmd-d63b4",
+  storageBucket: "hamidmd-d63b4.appspot.com",
+  messagingSenderId: "409985368155",
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: "G-FJC2MPGLJW"
+};
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 const baseTheme = {
   foreground: '#cccccc',
@@ -110,6 +125,7 @@ ${chalk.magentaBright('╰─')}${chalk.magentaBright(`(type '${chalk.bold('help
 function runCmd(command: string = ""): Promise<string | void> {
   let wait = Promise.resolve();
   let cmd = command.trim();
+  let analyticsData = { content_type: 'cmd', value: cmd, success: true };
   if (cmd) {
     switch(cmd) {
       case 'intro': {
@@ -166,10 +182,12 @@ Or, you can ask me anything, few examples:\r
         break;
       }
       default: {
+        analyticsData.content_type = 'qna';
         wait = qnaModel.then(model => model.findAnswers(cmd, passage)).then(anss => {
           if(anss[0]) {
             termWrite(chalk.whiteBright(anss[0].text));
           } else {
+            analyticsData.success = false;
             termWrite(`
   I didn't understand your command/query: ${chalk.cyanBright(cmd)},\r
   please try again or ask something else.\r
@@ -180,6 +198,8 @@ Or, you can ask me anything, few examples:\r
       }
     }
   }
+
+  logEvent(analytics, 'select_content', analyticsData);
 
   return wait.then(() => localEcho.read(`╭── ${chalk.greenBright('[Guest user]: ~/')}\r\n╰─$ `))
     .then(runCmd)
