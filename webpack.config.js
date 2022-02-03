@@ -34,7 +34,7 @@ module.exports = {
     extensions: ['.ts', '.js'],
   },
   plugins: [
-    new Dotenv(),
+    new Dotenv({ systemvars: true }),
     new HtmlWebpackPlugin({
       scriptLoading: 'module',
     }),
