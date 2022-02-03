@@ -63,6 +63,26 @@ module.exports = {
             },
           },
         },
+        {
+          urlPattern: /^https:\/\/storage\.googleapis\.com\/tfhub-tfjs-modules\//,
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'tfjs',
+            expiration: {
+              maxEntries: 100,
+            },
+          },
+        },
+        {
+          urlPattern: /^https:\/\/tfhub\.dev\/tensorflow\/tfjs-model\//,
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'tfjs-302',
+            expiration: {
+              maxEntries: 100,
+            },
+          },
+        }
       ],
     }),
   ].filter(v => v),
