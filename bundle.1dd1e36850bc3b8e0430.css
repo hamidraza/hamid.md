@@ -175,4 +175,4 @@
     text-decoration: line-through;
 }
 
-html{height:100%;box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}body{min-height:100%;background-color:#2d2e2c;margin:0}.xterm-wrap{height:100vh;padding:8px;display:flex;flex-direction:column}#xterm-container,.terminal.xterm{flex:1}
+html{height:100%;box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}body{min-height:100%;background-color:#282a36;margin:0}.xterm-wrap{height:100vh;padding:8px;display:flex;flex-direction:column}#xterm-container,.terminal.xterm{flex:1}
