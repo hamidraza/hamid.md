@@ -65,7 +65,7 @@ const localEcho = new LocalEchoController();
 
 let qnaModel = qna.load();
 
-const passage = `Hello everyone, My name is MD HamidRaza, you can call me Hamid. I am from Sundargarh, Odisha. Currently I live in Bangalore, Karnataka. I love programming and developing web and mobile applications. In my free time you'll find me playing around or tinkering with different frameworks, libraries or new technogolies. Currently I am actively exploring and learning about Crypto, Blockchain and Web3 world. I have total 12 years of experience in Software engineering, and 6+ years of experience in technical leadership. You can contact me at my email rz@hamid.md`;
+const passage = `Hello everyone, My name is MD HamidRaza, you can call me Hamid. I am from Sundargarh, Odisha. Currently I live in Dubai, UAE. I love programming and developing web and mobile applications. In my free time you'll find me playing around or tinkering with different frameworks, libraries or new technogolies. Currently I am actively exploring and learning about Crypto, Blockchain and Web3 world. I have total 12 years of experience in Software engineering, and 6+ years of experience in technical leadership. You can contact me at my email rz@hamid.md`;
 
 let availableCmds = [
   'intro',
