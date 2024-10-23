@@ -11,7 +11,8 @@ import { getPerformance } from "firebase/performance";
 import 'xterm/css/xterm.css';
 import './style.scss';
 
-fetch("https://api.hamid.md/feature-flags").then(res => {
+const rnd = Math.random().toString(36).substring(7);
+fetch(`https://api.hamid.md/feature-flags?r=${rnd}`).then(res => {
   // TODO: implement feature flags
 });
 
