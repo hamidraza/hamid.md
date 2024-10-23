@@ -11,6 +11,10 @@ import { getPerformance } from "firebase/performance";
 import 'xterm/css/xterm.css';
 import './style.scss';
 
+fetch("https://api.hamid.md/feature-flags").then(res => {
+  // TODO: implement feature flags
+});
+
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "hamidmd-d63b4.firebaseapp.com",
