@@ -64,6 +64,26 @@ module.exports = {
           },
         },
         {
+          urlPattern: /^\/[^\/]+\dot$/,
+          handler: 'NetworkFirst',
+          options: {
+            cacheName: 'dot',
+            expiration: {
+              maxEntries: 10,
+            },
+          },
+        },
+        {
+          urlPattern:  /\bfeature-flag\b/,
+          handler: 'NetworkFirst',
+          options: {
+            cacheName: 'feature-flag',
+            expiration: {
+              maxEntries: 10,
+            },
+          },
+        },
+        {
           urlPattern: /^https:\/\/storage\.googleapis\.com\/tfhub-tfjs-modules\//,
           handler: 'CacheFirst',
           options: {
