@@ -1,13 +1,13 @@
 {
   "name": "hamid.md",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=development webpack serve --open",
     "build": "NODE_ENV=production webpack && markdown-it CREDITS.md > dist/credits.html",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "version": "credits-generator && git add -A CREDITS.md",
+    "version": "git add -A CREDITS.md",
     "clean": "rm ./dist/bundle.* ./dist/*.html ./dist/workbox-* ./dist/service-worker.js"
   },
   "keywords": [],
